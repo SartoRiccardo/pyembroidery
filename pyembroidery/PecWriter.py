@@ -145,11 +145,12 @@ def pec_encode(pattern, f):
     jumping = True
     init = True
     stitches = pattern.stitches
+    bounds = pattern.bounds()
     xx = 0
     yy = 0
     for stitch in stitches:
-        x = stitch[0]
-        y = stitch[1]
+        x = stitch[0] + bounds[2]
+        y = stitch[1] + bounds[3]
         data = stitch[2] & COMMAND_MASK
         dx = int(round(x - xx))
         dy = int(round(y - yy))
