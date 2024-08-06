@@ -8,6 +8,7 @@ from .WriteHelper import (
     write_int_24le,
     write_string_utf8,
 )
+import math
 
 SEQUIN_CONTINGENCY = CONTINGENCY_SEQUIN_JUMP
 FULL_JUMP = True
@@ -146,11 +147,13 @@ def pec_encode(pattern, f):
     init = True
     stitches = pattern.stitches
     bounds = pattern.bounds()
+    half_width = math.ceil((bounds[2] - bounds[0])/2)
+    half_height = math.ceil((bounds[3] - bounds[1])/2)
     xx = 0
     yy = 0
     for stitch in stitches:
-        x = stitch[0] + bounds[2]
-        y = stitch[1] + bounds[3]
+        x = stitch[0] + half_width
+        y = stitch[1] + half_height
         data = stitch[2] & COMMAND_MASK
         dx = int(round(x - xx))
         dy = int(round(y - yy))
